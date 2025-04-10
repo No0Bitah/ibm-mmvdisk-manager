@@ -80,6 +80,7 @@ def get_args():
     Usage:
         try.py --replace [--short]
         try.py --prepare [--short]
+        try.py --dryrun [--short]
         try.py --email -e <EMAIL> 
         try.py --version
         try.py -h | --help
@@ -306,8 +307,11 @@ def replace_pdisk(args, pdisk, group, need_replace):
     command_str = ' '.join([str(elem) for elem in command_parts])
     commands.append(command_str)
 
-
-    if args['--email']:
+    if args['--dryrun']:
+        # Just print the commands without executing
+        print(commands)
+    
+    elif args['--email']:
         # Send email with disk replacement information
         send_emails(args['<EMAIL>'], need_replace)
 
